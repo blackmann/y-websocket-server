@@ -1,9 +1,9 @@
-import * as Y from 'yjs'
-import * as syncProtocol from '@y/protocols/sync'
 import * as awarenessProtocol from '@y/protocols/awareness'
+import * as syncProtocol from '@y/protocols/sync'
+import * as Y from 'yjs'
 
-import * as encoding from 'lib0/encoding'
 import * as decoding from 'lib0/decoding'
+import * as encoding from 'lib0/encoding'
 import * as map from 'lib0/map'
 
 import * as eventloop from 'lib0/eventloop'
@@ -225,10 +225,9 @@ const pingTimeout = 30000
 
 /**
  * @param {import('ws').WebSocket} conn
- * @param {import('http').IncomingMessage} req
- * @param {any} opts
+ * @param {{docName?: string, gc?: boolean}} opts
  */
-export const setupWSConnection = (conn, req, { docName = (req.url || '').slice(1).split('?')[0], gc = true } = {}) => {
+export const setupWSConnection = (conn, { docName = 'default', gc = true } = {}) => {
   conn.binaryType = 'arraybuffer'
   // get doc, initialize if it does not exist yet
   const doc = getYDoc(docName, gc)
